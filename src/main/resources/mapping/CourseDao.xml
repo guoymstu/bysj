@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gym.web.dao.CourseDao">
+  <resultMap id="BaseResultMap" type="com.gym.web.model.Course">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="courseName" jdbcType="VARCHAR" property="coursename" />
+    <result column="courseHours" jdbcType="VARCHAR" property="coursehours" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="courseScore" jdbcType="INTEGER" property="coursescore" />
+    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="term" jdbcType="VARCHAR" property="term" />
+    <result column="courseType" jdbcType="VARCHAR" property="coursetype" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="timeplan" jdbcType="VARCHAR" property="timeplan" />
+    <result column="commonType" jdbcType="VARCHAR" property="commontype" />
+    <result column="countStu" jdbcType="VARCHAR" property="countstu" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, courseName, courseHours, address, courseScore, year, term, courseType, remark, 
+    timeplan, commonType, countStu
+  </sql>
+  <select id="selectByExample" parameterType="com.gym.web.model.CourseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_course
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_course
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gym.web.model.CourseExample">
+    delete from tb_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.gym.web.model.Course">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="coursename != null">
+        courseName,
+      </if>
+      <if test="coursehours != null">
+        courseHours,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="coursescore != null">
+        courseScore,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="term != null">
+        term,
+      </if>
+      <if test="coursetype != null">
+        courseType,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="timeplan != null">
+        timeplan,
+      </if>
+      <if test="commontype != null">
+        commonType,
+      </if>
+      <if test="countstu != null">
+        countStu,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="coursename != null">
+        #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="coursehours != null">
+        #{coursehours,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="coursescore != null">
+        #{coursescore,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null">
+        #{term,jdbcType=VARCHAR},
+      </if>
+      <if test="coursetype != null">
+        #{coursetype,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="timeplan != null">
+        #{timeplan,jdbcType=VARCHAR},
+      </if>
+      <if test="commontype != null">
+        #{commontype,jdbcType=VARCHAR},
+      </if>
+      <if test="countstu != null">
+        #{countstu,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gym.web.model.CourseExample" resultType="java.lang.Long">
+    select count(*) from tb_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_course
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursename != null">
+        courseName = #{record.coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursehours != null">
+        courseHours = #{record.coursehours,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursescore != null">
+        courseScore = #{record.coursescore,jdbcType=INTEGER},
+      </if>
+      <if test="record.year != null">
+        year = #{record.year,jdbcType=VARCHAR},
+      </if>
+      <if test="record.term != null">
+        term = #{record.term,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coursetype != null">
+        courseType = #{record.coursetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeplan != null">
+        timeplan = #{record.timeplan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commontype != null">
+        commonType = #{record.commontype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countstu != null">
+        countStu = #{record.countstu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_course
+    set id = #{record.id,jdbcType=VARCHAR},
+      courseName = #{record.coursename,jdbcType=VARCHAR},
+      courseHours = #{record.coursehours,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      courseScore = #{record.coursescore,jdbcType=INTEGER},
+      year = #{record.year,jdbcType=VARCHAR},
+      term = #{record.term,jdbcType=VARCHAR},
+      courseType = #{record.coursetype,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      timeplan = #{record.timeplan,jdbcType=VARCHAR},
+      commonType = #{record.commontype,jdbcType=VARCHAR},
+      countStu = #{record.countstu,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gym.web.model.Course">
+    update tb_course
+    <set>
+      <if test="coursename != null">
+        courseName = #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="coursehours != null">
+        courseHours = #{coursehours,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="coursescore != null">
+        courseScore = #{coursescore,jdbcType=INTEGER},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null">
+        term = #{term,jdbcType=VARCHAR},
+      </if>
+      <if test="coursetype != null">
+        courseType = #{coursetype,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="timeplan != null">
+        timeplan = #{timeplan,jdbcType=VARCHAR},
+      </if>
+      <if test="commontype != null">
+        commonType = #{commontype,jdbcType=VARCHAR},
+      </if>
+      <if test="countstu != null">
+        countStu = #{countstu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gym.web.model.Course">
+    update tb_course
+    set courseName = #{coursename,jdbcType=VARCHAR},
+      courseHours = #{coursehours,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      courseScore = #{coursescore,jdbcType=INTEGER},
+      year = #{year,jdbcType=VARCHAR},
+      term = #{term,jdbcType=VARCHAR},
+      courseType = #{coursetype,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      timeplan = #{timeplan,jdbcType=VARCHAR},
+      commonType = #{commontype,jdbcType=VARCHAR},
+      countStu = #{countstu,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <insert id="insert" parameterType="com.gym.web.model.Course">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_course ( id ,courseName, courseHours, address,
+    courseScore, year, term,
+    courseType, remark, timeplan,
+    commonType, countStu)
+    values (#{id,jdbcType=VARCHAR},#{coursename,jdbcType=VARCHAR}, #{coursehours,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+    #{coursescore,jdbcType=INTEGER}, #{year,jdbcType=VARCHAR}, #{term,jdbcType=VARCHAR},
+    #{coursetype,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{timeplan,jdbcType=VARCHAR},
+    #{commontype,jdbcType=VARCHAR}, #{countstu,jdbcType=VARCHAR})
+  </insert>
+
+</mapper>
