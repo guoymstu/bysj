@@ -1,2 +1,4 @@
 #java
 *.class
+#临时
+~*.docx
