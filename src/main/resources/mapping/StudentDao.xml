@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, classid, name, sex, telnum, mail, address, idcardNum, remark
+    id, classid, name, sex, telnum, mail, address, idcardnum, remark
   </sql>
   <select id="selectByExample" parameterType="com.gym.web.model.StudentExample" resultMap="BaseResultMap">
     select

@@ -64,7 +64,7 @@
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" data-url="<%=basePath%>admin/user/userList.shtm"><label>用户列表</label></a>
                     </dd>
-                    <dd><a href="javascript:;" data-url="<%=basePath%>admin/user/user-collect.shtm"><label>用户统计</label></a></dd>
+                    <dd><a href="javascript:;" data-url="<%=basePath%>admin/user/user-chart.shtm"><label>用户统计</label></a></dd>
                 </dl>
             </li>
 

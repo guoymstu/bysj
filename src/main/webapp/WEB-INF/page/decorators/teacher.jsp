@@ -23,11 +23,7 @@
 <style>
 
 
-
-
 </style>
-
-
 
 
 <body>
@@ -67,23 +63,24 @@
 
             <li class="layui-nav-item"><a>学生管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" data-url="<%=basePath%>admin/course/courseList.shtm"><label>课程列表</label></a></dd>
+                    <dd><a href="javascript:;" data-url="<%=basePath%>teacher/student/studentListView.shtm"><label>我的学生</label></a></dd>
                 </dl>
-                <%--<dl class="layui-nav-child">--%>
-                <%--<dd><a href="javascript:;" data-url="<%=basePath%>admin/product/product-list.html"><label>课程列表</label></a></dd>--%>
-                <%--</dl>--%>
+
             </li>
 
 
             <li class="layui-nav-item"><a>信息维护</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" data-url="<%=basePath%>admin/pingjiao/pingjiaoList.shtm"><label>个人信息设置</label></a></dd>
+                    <dd><a href="javascript:;" data-url="<%=basePath%>teacher/infoEdit.shtm"><label>个人信息设置</label></a></dd>
                 </dl>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" data-url="<%=basePath%>admin/order/order-list.html"><label>评教记录</label></a></dd>
+                    <dd><a href="javascript:;" data-url="<%=basePath%>teacher/resetpwd.shtm"><label>修改密码</label></a></dd>
                 </dl>
+            </li>
+
+            <li class="layui-nav-item"><a>我的评价</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" data-url="<%=basePath%>admin/order/order-list.html"><label>评教统计</label></a></dd>
+                    <dd><a href="javascript:;" data-url="<%=basePath%>teacher/pingjiao/myPingjiaoView.shtm"><label>我的评价</label></a></dd>
                 </dl>
             </li>
         </ul>

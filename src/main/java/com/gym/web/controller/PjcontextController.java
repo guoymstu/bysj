@@ -77,6 +77,16 @@ public class PjcontextController {
         return "admin/pingjiao/pingjiao-add";
     }
 
+    @RequestMapping("/editPingjiaoForm.shtm")
+    public String editPingjiaoForm(HttpServletRequest request) {
+        //课程类型
+        JSONArray coursetypes = dicCourseTypeSer.getCourseType();
+        request.setAttribute("coursetypes", coursetypes);
+
+
+        return "admin/pingjiao/pingjiao-edit";
+    }
+
     /**
      * 获取评教项
      *

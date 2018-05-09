@@ -2,9 +2,9 @@ package com.gym.web.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonAnyFormatVisitor;
 import com.gym.commons.helper.QueryParmFormat;
 import com.gym.web.service.GxTeaCourseSer;
+import com.gym.web.service.PjRecordSer;
 import com.gym.web.service.TeacherSer;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -24,6 +24,8 @@ public class TeacherController {
     TeacherSer teacherSer;
     @Autowired
     GxTeaCourseSer gxTeaCourseSer;
+    @Autowired
+    PjRecordSer pjRecordSer;
 
 
     @RequestMapping("/course/selectCourse.shtm")
@@ -119,6 +121,37 @@ public class TeacherController {
             return jsonObject;
         }
         return jsonObject;
+    }
+
+    /**
+     * 我的评价View
+     * @param request
+     * @return
+     */
+    @RequestMapping("/pingjiao/myPingjiaoView.shtm")
+    public String myPingjiaoView(HttpServletRequest request) {
+
+        Subject currentUser = SecurityUtils.getSubject();
+        String teaId = currentUser.getPrincipal().toString();
+
+        //获取平均得分
+        JSONArray marks= pjRecordSer.getAvgmark(teaId);
+        JSONArray remarks=pjRecordSer.getRemarks(teaId);
+        request.setAttribute("marks",marks);
+        request.setAttribute("remarks",remarks);
+
+        return "/teacher/pingjiao/myPingjiao-view";
+    }
+
+    @RequestMapping("/info/myPingjiaoView.shtm")
+    public String infoEdit(HttpServletRequest request) {
+
+        Subject currentUser = SecurityUtils.getSubject();
+        String teaId = currentUser.getPrincipal().toString();
+
+
+
+        return "/teacher/pingjiao/myPingjiao-view";
     }
 
 

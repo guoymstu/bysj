@@ -71,6 +71,25 @@ public class CourseSerImpl extends BaseServiceImpl<Course> implements CourseSer 
     }
 
     @Override
+    public int updataCourse(Map<String, String> map) {
+        Course course = new Course();
+        course.setId(map.get("courseid"));
+        course.setCoursename(map.get("coursename"));
+        course.setCoursehours(map.get("coursehours"));
+        course.setAddress(map.get("address"));
+        course.setYear(map.get("year"));
+        course.setTerm(map.get("term"));
+        course.setCoursetype(map.get("coursetype"));
+        course.setTimeplan(map.get("timeplan"));
+
+        course.setCountstu(map.get("countstu"));
+        course.setCoursescore(map.get("coursescore"));
+        int i = courseDao.updateByPrimaryKey(course);
+
+        return i;
+    }
+
+    @Override
     public int delCourseByid(String courseid) {
         CourseExample example = new CourseExample();
         CourseExample.Criteria criteria = example.createCriteria();
@@ -78,6 +97,15 @@ public class CourseSerImpl extends BaseServiceImpl<Course> implements CourseSer 
         int i = courseDao.deleteByExample(example);
         return i;
     }
+
+    @Override
+    public Course findByPrimaryKey(String courseid) {
+        Course course=courseDao.selectByPrimaryKey(courseid);
+
+        return course;
+    }
+
+
 
 
 }

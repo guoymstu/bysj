@@ -99,7 +99,7 @@ public class PjcontextSerImpl extends BaseServiceImpl<Pjcontext> implements Pjco
     @Override
     public JSONArray getItems(String courseid) {
 
-        JSONArray array=new JSONArray();
+        JSONArray array;
         Course course=courseDao.selectByPrimaryKey(courseid);
         String coursetype=course.getCoursetype();
 

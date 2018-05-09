@@ -3,6 +3,7 @@ package com.gym.web.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.gym.commons.helper.QueryParmFormat;
+import com.gym.web.model.Course;
 import com.gym.web.service.CourseSer;
 import com.gym.web.service.DicCourseTypeSer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class CourseController {
     CourseSer courseSer;
 
     @Autowired
-    DicCourseTypeSer  dicCourseTypeSer;
+    DicCourseTypeSer dicCourseTypeSer;
 
     /**
      * 课程View
@@ -73,14 +74,34 @@ public class CourseController {
     public JSONObject saveCourse(HttpServletRequest req) {
         Map<String, String> querymap = QueryParmFormat.Format(req.getParameterMap());
         JSONObject jsonObject = new JSONObject();
-        int i = courseSer.saveCourse(querymap);
-        if (i > 0) {
-            jsonObject.put("msg", "添加课程成功");
-            jsonObject.put("status", "success");
-            return jsonObject;
+       String courseid= querymap.get("courseid");
+        Course course = courseSer.findByPrimaryKey(courseid);
+        if (course != null) {//更新课程
+            int i=courseSer.updataCourse(querymap);
+            if (i > 0) {
+                jsonObject.put("msg", "更新课程成功");
+                jsonObject.put("status", "success");
+                return jsonObject;
+            }
+        }else{//添加课程
+            int i = courseSer.saveCourse(querymap);
+            if (i > 0) {
+                jsonObject.put("msg", "添加课程成功");
+                jsonObject.put("status", "success");
+                return jsonObject;
+            }
         }
         return jsonObject;
     }
+
+    @RequestMapping("/editCourse.shtm")
+    public String editCourse(HttpServletRequest request) {
+        String courseid = request.getParameter("courseid");
+        Course course = courseSer.findByPrimaryKey(courseid);
+        request.setAttribute("course", course);
+        return "admin/course/course-edit";
+    }
+
 
     /**
      * 删除课程

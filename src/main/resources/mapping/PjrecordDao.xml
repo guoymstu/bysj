@@ -7,7 +7,7 @@
     <result column="courseId" jdbcType="VARCHAR" property="courseid" />
     <result column="contextId" jdbcType="VARCHAR" property="contextid" />
     <result column="marking" jdbcType="VARCHAR" property="marking" />
-    <result column="reamrk" jdbcType="VARCHAR" property="reamrk" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, stuNum, courseId, contextId, marking, reamrk
+    id, stuNum, courseId, contextId, marking, remark
   </sql>
   <select id="selectByExample" parameterType="com.gym.web.model.PjrecordExample" resultMap="BaseResultMap">
     select
@@ -76,7 +76,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from Tb_pjRecord
+    from tb_pjrecord
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -95,33 +95,25 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from Tb_pjRecord
+    from tb_pjrecord
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from Tb_pjRecord
+    delete from tb_pjrecord
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.gym.web.model.PjrecordExample">
-    delete from Tb_pjRecord
+    delete from tb_pjrecord
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.gym.web.model.Pjrecord">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into Tb_pjRecord (stuNum, courseId, contextId, 
-      marking, reamrk)
-    values (#{stunum,jdbcType=VARCHAR}, #{courseid,jdbcType=VARCHAR}, #{contextid,jdbcType=VARCHAR}, 
-      #{marking,jdbcType=VARCHAR}, #{reamrk,jdbcType=VARCHAR})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.gym.web.model.Pjrecord">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into Tb_pjRecord
+    insert into tb_pjrecord
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="stunum != null">
         stuNum,
@@ -135,8 +127,8 @@
       <if test="marking != null">
         marking,
       </if>
-      <if test="reamrk != null">
-        reamrk,
+      <if test="remark != null">
+        remark,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -152,19 +144,19 @@
       <if test="marking != null">
         #{marking,jdbcType=VARCHAR},
       </if>
-      <if test="reamrk != null">
-        #{reamrk,jdbcType=VARCHAR},
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.gym.web.model.PjrecordExample" resultType="java.lang.Long">
-    select count(*) from Tb_pjRecord
+    select count(*) from tb_pjrecord
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update Tb_pjRecord
+    update tb_pjrecord
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
@@ -181,8 +173,8 @@
       <if test="record.marking != null">
         marking = #{record.marking,jdbcType=VARCHAR},
       </if>
-      <if test="record.reamrk != null">
-        reamrk = #{record.reamrk,jdbcType=VARCHAR},
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -190,19 +182,19 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update Tb_pjRecord
+    update tb_pjrecord
     set id = #{record.id,jdbcType=VARCHAR},
       stuNum = #{record.stunum,jdbcType=VARCHAR},
       courseId = #{record.courseid,jdbcType=VARCHAR},
       contextId = #{record.contextid,jdbcType=VARCHAR},
       marking = #{record.marking,jdbcType=VARCHAR},
-      reamrk = #{record.reamrk,jdbcType=VARCHAR}
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.gym.web.model.Pjrecord">
-    update Tb_pjRecord
+    update tb_pjrecord
     <set>
       <if test="stunum != null">
         stuNum = #{stunum,jdbcType=VARCHAR},
@@ -216,19 +208,29 @@
       <if test="marking != null">
         marking = #{marking,jdbcType=VARCHAR},
       </if>
-      <if test="reamrk != null">
-        reamrk = #{reamrk,jdbcType=VARCHAR},
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gym.web.model.Pjrecord">
-    update Tb_pjRecord
+    update tb_pjrecord
     set stuNum = #{stunum,jdbcType=VARCHAR},
       courseId = #{courseid,jdbcType=VARCHAR},
       contextId = #{contextid,jdbcType=VARCHAR},
       marking = #{marking,jdbcType=VARCHAR},
-      reamrk = #{reamrk,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <insert id="insert" parameterType="com.gym.web.model.Pjrecord">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_pjrecord (id,stuNum, courseId, contextId,
+    marking, remark)
+    values (#{id,jdbcType=VARCHAR},#{stunum,jdbcType=VARCHAR}, #{courseid,jdbcType=VARCHAR}, #{contextid,jdbcType=VARCHAR},
+    #{marking,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
 </mapper>

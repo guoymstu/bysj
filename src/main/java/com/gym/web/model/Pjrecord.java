@@ -3,7 +3,7 @@ package com.gym.web.model;
 import java.io.Serializable;
 
 /**
- * Tb_pjRecord
+ * tb_pjrecord
  * @author 
  */
 public class Pjrecord implements Serializable {
@@ -29,7 +29,7 @@ public class Pjrecord implements Serializable {
      */
     private String marking;
 
-    private String reamrk;
+    private String remark;
 
     private static final long serialVersionUID = 1L;
 
@@ -73,12 +73,12 @@ public class Pjrecord implements Serializable {
         this.marking = marking;
     }
 
-    public String getReamrk() {
-        return reamrk;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setReamrk(String reamrk) {
-        this.reamrk = reamrk;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     @Override
@@ -98,7 +98,7 @@ public class Pjrecord implements Serializable {
             && (this.getCourseid() == null ? other.getCourseid() == null : this.getCourseid().equals(other.getCourseid()))
             && (this.getContextid() == null ? other.getContextid() == null : this.getContextid().equals(other.getContextid()))
             && (this.getMarking() == null ? other.getMarking() == null : this.getMarking().equals(other.getMarking()))
-            && (this.getReamrk() == null ? other.getReamrk() == null : this.getReamrk().equals(other.getReamrk()));
+            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()));
     }
 
     @Override
@@ -110,7 +110,7 @@ public class Pjrecord implements Serializable {
         result = prime * result + ((getCourseid() == null) ? 0 : getCourseid().hashCode());
         result = prime * result + ((getContextid() == null) ? 0 : getContextid().hashCode());
         result = prime * result + ((getMarking() == null) ? 0 : getMarking().hashCode());
-        result = prime * result + ((getReamrk() == null) ? 0 : getReamrk().hashCode());
+        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         return result;
     }
 
@@ -125,7 +125,7 @@ public class Pjrecord implements Serializable {
         sb.append(", courseid=").append(courseid);
         sb.append(", contextid=").append(contextid);
         sb.append(", marking=").append(marking);
-        sb.append(", reamrk=").append(reamrk);
+        sb.append(", remark=").append(remark);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

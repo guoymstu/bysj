@@ -33,8 +33,8 @@
                 <button class="layui-btn mgl-20" id="refresh">刷新</button>
 
                 <div class="fr">
-                    <a class="layui-btn layui-btn-danger radius btn-delect" id="btn-delect-all"><i
-                            class="linyer icon-delect"></i> 批量删除</a>
+                    <%--<a class="layui-btn layui-btn-danger radius btn-delect" id="btn-delect-all"><i--%>
+                    <%--class="linyer icon-delect"></i> 批量删除</a>--%>
                     <a class="layui-btn btn-add btn-default" id="btn-addtea"><i class="linyer icon-add"></i> 添加教师</a>
                     <a class="layui-btn btn-add btn-default" id="btn-addstu"><i class="linyer icon-add"></i> 添加学生</a>
                 </div>
@@ -148,9 +148,7 @@
                         "sTitle": "学号/工号", //标题
                         "sDefaultContent": "", //此列默认值为""，以防数据中没有此值，DataTables加载数据的时候报错
                     }, {
-                        "data": function (obj) {
-                            return '<u class="btn-showuser">' + obj.username + '</u>';
-                        },
+                        "data": "username",
                         "sTitle": "用户名", //标题
                         "sType": 'chinese',
                         "sDefaultContent": "", //此列默认值为""，以防数据中没有此值，DataTables加载数据的时候报错
@@ -198,7 +196,7 @@
                             if (obj.block == "0") {
                                 return '<span title="停用" class="handle-btn handle-btn-stop"><i class="linyer icon-zanting"></i></span>' +
                                     '<span title="编辑" class="handle-btn handle-btn-edit"><i class="linyer icon-edit"></i></span>' +
-                                    '<span title="修改密码" class="handle-btn handle-btn-updatepwd"><i class="linyer icon-xgpwd2"></i></span>' +
+                                    '<span title="重置密码" class="handle-btn handle-btn-updatepwd"><i class="linyer icon-xgpwd2"></i></span>' +
                                     '<span title="删除" class="handle-btn handle-btn-delect"><i class="linyer icon-delect"></i></span>';
                             } else {
                                 return '<span title="启用" class="handle-btn handle-btn-run"><i class="linyer icon-qiyong"></i></span><span title="编辑" class="handle-btn handle-btn-edit"><i class="linyer icon-edit"></i></span><span title="修改密码" class="handle-btn handle-btn-updatepwd"><i class="linyer icon-xgpwd2"></i></span><span title="删除" class="handle-btn handle-btn-delect"><i class="linyer icon-delect"></i></span>';
@@ -241,24 +239,25 @@
                     "extend": "copy",
                     "text": "<i class='linyer icon-copy'></i> <span class='hidden'>复制到剪贴板</span>",
                     "className": "layui-btn table-tool"
-                }, {
-                    "extend": "csv",
-                    "text": "<i class='linyer icon-exports'></i> <span class='hidden'>导出csv</span>",
-                    "className": "layui-btn table-tool"
-                }, {
-                    "extend": "excel",
-                    "text": "<i class='linyer icon-excel'></i> <span class='hidden'>导出excel</span>",
-                    "className": "layui-btn table-tool"
-                }, {
-                    "extend": "pdf",
-                    "text": "<i class='linyer icon-pdf'></i> <span class=''>导出pdf</span>",
-                    "className": "layui-btn table-tool"
-                }, {
-                    "extend": "print",
-                    "text": "<i class='linyer icon-print'></i> <span class='hidden'>打印</span>",
-                    "className": "layui-btn table-tool",
-                    autoPrint: false
-                }]
+                },
+                    {
+                        "extend": "excel",
+                        "text": "<i class='linyer icon-excel'></i> <span class='hidden'>导出excel</span>",
+                        "className": "layui-btn table-tool"
+                    }, {
+                        "extend": "csv",
+                        "text": "<i class='linyer icon-exports'></i> <span class='hidden'>导出csv</span>",
+                        "className": "layui-btn table-tool"
+                    }, {
+                        "extend": "pdf",
+                        "text": "<i class='linyer icon-pdf'></i> <span class=''>导出pdf</span>",
+                        "className": "layui-btn table-tool"
+                    }, {
+                        "extend": "print",
+                        "text": "<i class='linyer icon-print'></i> <span class='hidden'>打印</span>",
+                        "className": "layui-btn table-tool",
+                        autoPrint: false
+                    }]
             });
             myTable.buttons().container().appendTo($('.tableTools'));
             /**
@@ -298,17 +297,7 @@
                 var selectRow = $($(myTable).context[0].nTBody).find('tr.selected');
                 console.log(selectRow1);
             })
-            //外部多选获取id
-            //  $('#ssss').on('click',function(){
-            //    var list = [];
-            //    $.each($('#userTable tbody > tr'), function() {
-            //    	if($(this).hasClass('selected')){
-            //    	  var id = $(this).find('input.fly-checkbox').data('id');
-            //    	  list.push(id);
-            //    	}
-            //    });
-            //    console.log(list);
-            //  })
+
             /**
              * 取消选择
              */
@@ -340,18 +329,11 @@
                 var row = $(this).closest('tr').get(0);
             })
         });
-        //用户--查看
-        $("#userTable").on('click', '.btn-showuser', function () {
-            var username = $(this).html();
-            var href = 'user-show.html';
-            layer_show(username, href, '', '400', '500');
-        });
-
         /*用户-添加-教师*/
         $("#btn-addtea").on('click', function () {
-            var username = $(this).html();
+            var title = $(this).html();
             var href = 'user-add.shtm?role=teacher';
-            layer_show(username, href, '', '800', '500');
+            layer_show(title, href, '', '800', '500');
         });
         /*用户-添加*/
         $("#btn-addstu").on('click', function () {
@@ -394,7 +376,6 @@
 
             });
         });
-
         /*用户--启用*/
         $('.table-sort').on('click', '.handle-btn-run', function () {
             var obj = $(this);
@@ -456,16 +437,15 @@
                 }
             });//ajax
         });
-
         /*用户-编辑*/
         $('.table-sort').on('click', '.handle-btn-edit', function () {
             var obj = $(this);
-            layer_show('编辑', 'user-edit.shtm', '', '800', '500');
+            var useruid = $(obj).parents("tr").find("td:nth-child(2)").html();
+            layer_show('编辑', 'user-edit.shtm?useruid=' + useruid, '', '800', '500');
         });
 
         /*用户-删除*/
         $('.table-sort').on('click', '.handle-btn-delect', function () {
-            var obj = $(this);
             var obj = $(this);
             var useruid = $(obj).parents("tr").find("td:nth-child(2)").html();
             console.log(useruid);

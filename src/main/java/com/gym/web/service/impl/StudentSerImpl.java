@@ -55,7 +55,6 @@ public class StudentSerImpl extends BaseServiceImpl<Student> implements StudentS
 
     @Override
     public int updateStudent(Map<String, String> map) {
-
         Student student = new Student();
         student.setId(map.get("uid"));
         student.setClassid(map.get("banji"));
@@ -67,18 +66,25 @@ public class StudentSerImpl extends BaseServiceImpl<Student> implements StudentS
         student.setTelnum(map.get("telnum"));
         student.setRemark(map.get("remark"));
         int i = studentDao.updateByPrimaryKey(student);
-
-
         return i;
     }
 
+    /**
+     * 添加学生
+     * @param map
+     * @return
+     */
     @Override
     public int addStudent(Map<String, String> map) {
 
         Student student = new Student();
+
+        String address = map.get("province") + map.get("city") + map.get("county") + "(" + map.get("address") + ")";
+        student.setAddress(address);
+
+
         student.setId(map.get("uid"));
         student.setClassid(map.get("banji"));
-        student.setAddress(map.get("address"));
         student.setIdcardnum(map.get("idcardnum"));
         student.setMail(map.get("email"));
         student.setName(map.get("username"));

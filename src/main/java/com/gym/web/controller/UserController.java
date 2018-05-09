@@ -80,13 +80,18 @@ public class UserController {
         return null;
     }
 
-
+    /**
+     * 添加用户
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping("/user-add.shtm")
     public String addUser(HttpServletRequest request) {
         String role = request.getParameter("role");
         request.setAttribute("role", role);
         if ("teacher".equals(role)) {
-            //院系，职称，
+            //院系
             JSONArray yuanxis = scopeDicSer.getYuanxi();
             request.setAttribute("yuanxis", yuanxis);
 
@@ -109,9 +114,9 @@ public class UserController {
     }
 
 
-    @RequestMapping("/adduser.shtm")
+    @RequestMapping("/saveuser.shtm")
     @ResponseBody
-    public JSONObject saveuser(HttpServletRequest req, Teacher teacher) {
+    public JSONObject saveuser(HttpServletRequest req) {
         JSONObject jsonObject = new JSONObject();
         Map<String, String> pqramMap = QueryParmFormat.Format(req.getParameterMap());
         int userCount = userSer.countUserByUid(pqramMap.get("uid"));
@@ -137,7 +142,7 @@ public class UserController {
             if (userCount > 0) {//用户已存在,进行更新
                 userSer.updateUser(pqramMap);
                 studentSer.updateStudent(pqramMap);
-                req.setAttribute("msg", "用户已更新");
+                jsonObject.put("msg", "用户已更新");
                 jsonObject.put("status", "success");
                 return jsonObject;
             } else {//添加学生
@@ -152,6 +157,12 @@ public class UserController {
 
     }
 
+    /**
+     * 锁定用户
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping("/blockuser.shtm")
     @ResponseBody
     public JSONObject blockUser(HttpServletRequest request) {
@@ -168,30 +179,42 @@ public class UserController {
 
     @RequestMapping("/user-edit.shtm")
     public String editUser(HttpServletRequest request) {
-        String uid = request.getParameter("uid");
+        String uid = request.getParameter("useruid");
         User user = userSer.findUserByUid(uid);
         if ("teacher".equals(user.getRole())) {
             JSONArray yuanxis = scopeDicSer.getYuanxi();
             Teacher teacher = teacherSer.findByPrimaryKey(uid);
             request.setAttribute("teacher", teacher);
             request.setAttribute("yuanxis", yuanxis);
+            return "admin/user/user-edit-teacher";
         }
         if ("student".equals(user.getRole())) {
 
+            JSONArray nianjis = scopeDicSer.getNianji();
             JSONArray yuanxis = scopeDicSer.getYuanxi();
-            JSONArray zhuanyes = scopeDicSer.getZhuanye();
             JSONArray banjis = scopeDicSer.getAll();
-
+            JSONArray zhuanyes = scopeDicSer.getZhuanye();
             Student student = studentSer.findByPrimaryKey(uid);
             request.setAttribute("student", student);
+
+            request.setAttribute("nianjis", nianjis);
             request.setAttribute("yuanxis", yuanxis);
             request.setAttribute("zhuanyes", zhuanyes);
             request.setAttribute("banjis", banjis);
+
+
+            return "admin/user/user-edit-student";
         }
 
         return "admin/user/user-edit";
     }
 
+    /**
+     * 重置密码
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping("/resetpwd.shtm")
     @ResponseBody
     public JSONObject resetpwd(HttpServletRequest request) {
@@ -207,6 +230,7 @@ public class UserController {
 
     /**
      * 删除用户
+     *
      * @param request
      * @return
      */
@@ -221,8 +245,32 @@ public class UserController {
             return jsonObject;
         }
         return jsonObject;
-
     }
+
+    /**
+     * 用户统计view
+     * @return
+     */
+    @RequestMapping("/user-chart.shtm")
+    public  String userChartView(){
+        return "admin/user/user-chart";
+    }
+
+    /**
+     * 用户统计
+     * @return
+     */
+    @RequestMapping("/userChart.shtm")
+    @ResponseBody
+    public  JSONObject userChart(){
+        JSONObject jsonObject=new JSONObject();
+
+
+
+
+        return  jsonObject;
+    }
+
 
 
 }

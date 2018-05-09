@@ -16,8 +16,6 @@
 <div class="pd-20 user-add">
     <form class="layui-form" action="" method="post">
 
-        <%--学生--%>
-        <c:if test="${role=='student'}">
             <input name="role" value="student" hidden="hidden"/>
             <div class="layui-form-item">
                 <label class="layui-form-label">学号/工号</label>
@@ -118,7 +116,6 @@
                 </div>
             </div>
 
-        </c:if>
 
         <div class="layui-form-item">
             <label class="layui-form-label"></label>
@@ -299,7 +296,7 @@
             var flag = '0';
             $.ajax({
                 async: false,
-                url: '/admin/user/adduser.shtm',
+                url: '/admin/user/saveuser.shtm',
                 data: data.field,
                 type: 'post',
                 dataType: "json",

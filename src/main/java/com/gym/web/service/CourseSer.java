@@ -16,4 +16,8 @@ public interface CourseSer extends BaseService<Course> {
 
 
     int delCourseByid(String courseid);
+
+    Course findByPrimaryKey(String courseid);
+
+    int updataCourse(Map<String, String> querymap);
 }

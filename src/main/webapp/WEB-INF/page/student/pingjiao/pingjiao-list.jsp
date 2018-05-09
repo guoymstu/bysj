@@ -15,64 +15,61 @@
 <body>
 <div class="pd-20 pingjiao-add">
 
-    <form class="layui-form" action="">
+    <input id="courseid" value="${courseid}" hidden="hidden">
+    <form id="pingjiaoForm" class="layui-form" action="">
 
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
             <legend>教学态度</legend>
         </fieldset>
 
-        <c:forEach items="${pingjiaoitems}" var="item" >
+        <c:forEach items="${pingjiaoitems}" var="item">
             <c:if test='${item.pjtype eq "教学态度"}'>
                 <hr/>
                 <div>
                     <h1>（${item.sort}）${item.contentstr}</h1>
 
                     <div class="layui-input-block" style="margin-top: 20px;">
-                        <input type="radio" name="${item.id}" value="${item.maxscore}" title="优秀" checked="checked">
+                        <input type="radio" name="${item.id}" value="${item.maxscore}" title="优秀">
                         <input type="radio" name="${item.id}" value="${item.maxscore*0.8}" title="良好">
-                        <input type="radio" name="${item.id}" value="${item.maxscore*0.6}" title="合格">
+                        <input type="radio" name="${item.id}" value="${item.maxscore*0.6}" title="合格" checked="checked">
                         <input type="radio" name="${item.id}" value="${item.maxscore*0.5}" title="不合格">
                     </div>
                 </div>
-
-
             </c:if>
         </c:forEach>
 
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
             <legend>教学内容</legend>
         </fieldset>
-        <c:forEach items="${pingjiaoitems}" var="item" >
+        <c:forEach items="${pingjiaoitems}" var="item">
             <c:if test="${item.pjtype eq '教学内容'}">
                 <hr/>
                 <div>
                     <h1>（${item.sort}）${item.contentstr}</h1>
 
                     <div class="layui-input-block" style="margin-top: 20px;">
-                        <input type="radio" name="${item.id}" value="${item.maxscore}" title="优秀" checked="checked">
+                        <input type="radio" name="${item.id}" value="${item.maxscore}" title="优秀">
                         <input type="radio" name="${item.id}" value="${item.maxscore*0.8}" title="良好">
-                        <input type="radio" name="${item.id}" value="${item.maxscore*0.6}" title="合格">
+                        <input type="radio" name="${item.id}" value="${item.maxscore*0.6}" title="合格" checked="checked">
                         <input type="radio" name="${item.id}" value="${item.maxscore*0.5}" title="不合格">
                     </div>
                 </div>
-
-
             </c:if>
         </c:forEach>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
             <legend>教学方法</legend>
         </fieldset>
 
-        <c:forEach items="${pingjiaoitems}" var="item" >
+        <c:forEach items="${pingjiaoitems}" var="item">
             <c:if test="${item.pjtype=='教学方法'}">
                 <hr/>
                 <div>
                     <h1>（${item.sort}）${item.contentstr}</h1>
 
                     <div class="layui-input-block" style="margin-top: 20px;">
-                        <input type="radio" name="${item.id}" value="${item.maxscore}" title="优秀" checked="checked">
+                        <input type="radio" name="${item.id}" value="${item.maxscore}" title="优秀">
                         <input type="radio" name="${item.id}" value="${item.maxscore*0.8}" title="良好">
-                        <input type="radio" name="${item.id}" value="${item.maxscore*0.6}" title="合格">
+                        <input type="radio" name="${item.id}" value="${item.maxscore*0.6}" title="合格" checked="checked">
                         <input type="radio" name="${item.id}" value="${item.maxscore*0.5}" title="不合格">
                     </div>
                 </div>
@@ -84,16 +81,16 @@
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
             <legend>教学效果</legend>
         </fieldset>
-        <c:forEach items="${pingjiaoitems}" var="item" >
+        <c:forEach items="${pingjiaoitems}" var="item">
             <c:if test="${item.pjtype=='教学效果'}">
                 <hr/>
                 <div>
                     <h1>（${item.sort}）${item.contentstr}</h1>
 
                     <div class="layui-input-block" style="margin-top: 20px;">
-                        <input type="radio" name="${item.id}" value="${item.maxscore}" title="优秀" checked="checked">
+                        <input type="radio" name="${item.id}" value="${item.maxscore}" title="优秀">
                         <input type="radio" name="${item.id}" value="${item.maxscore*0.8}" title="良好">
-                        <input type="radio" name="${item.id}" value="${item.maxscore*0.6}" title="合格">
+                        <input type="radio" name="${item.id}" value="${item.maxscore*0.6}" title="合格" checked="checked">
                         <input type="radio" name="${item.id}" value="${item.maxscore*0.5}" title="不合格">
                     </div>
                 </div>
@@ -105,29 +102,36 @@
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
             <legend>教学管理</legend>
         </fieldset>
-        <c:forEach items="${pingjiaoitems}" var="item" >
+        <c:forEach items="${pingjiaoitems}" var="item">
             <c:if test="${item.pjtype=='教学管理'}">
                 <hr/>
                 <div>
                     <h1>（${item.sort}）${item.contentstr}</h1>
 
                     <div class="layui-input-block" style="margin-top: 20px;">
-                        <input type="radio" name="${item.id}" value="${item.maxscore}" title="优秀" checked="checked">
+                        <input type="radio" name="${item.id}" value="${item.maxscore}" title="优秀">
                         <input type="radio" name="${item.id}" value="${item.maxscore*0.8}" title="良好">
-                        <input type="radio" name="${item.id}" value="${item.maxscore*0.6}" title="合格">
+                        <input type="radio" name="${item.id}" value="${item.maxscore*0.6}" title="合格" checked="checked">
                         <input type="radio" name="${item.id}" value="${item.maxscore*0.5}" title="不合格">
                     </div>
                 </div>
             </c:if>
         </c:forEach>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>主观建议</legend>
+            <legend>主观点</legend>
         </fieldset>
-
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">建议</label>
+        <h1>(${fn:length(pingjiaoitems)+1}) 喜欢教师教学中的哪些方面？有无希望教师改进的方面？</h1>
+        <div class="layui-form-item layui-form-text" style="margin-top: 20px;">
             <div class="layui-input-block">
-                <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                <textarea id="issue" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <%--按钮--%>
+        <div class="layui-form-item" style="margin-top: 20px;">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-inline">
+                <button class="layui-btn" lay-submit="" id="add" lay-filter="add">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
 
@@ -143,12 +147,11 @@
 <script>
 
 
-
     layui.use(['form', 'jquery'], function () {
         var form = layui.form(),
             $ = layui.jquery;
 
-      $('fieldset+hr').remove()
+        $('fieldset+hr').remove()//
 
         /*表单验证*/
         /*  form.verify({
@@ -183,28 +186,16 @@
                   }
               }
           });*/
-        //blur监听
-        $('input[name="username"]').on('blur', function () {
-            var value = $(this).val();
-            if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
-                layer.msg('用户名不能有特殊字符');
-            }
-            if (/(^\_)|(\__)|(\_+$)/.test(value)) {
-                layer.msg('用户名首尾不能出现下划线\'_\'');
-            }
-            if (/^\d+\d+\d$/.test(value)) {
-                layer.msg('用户名不能全为数字');
-            }
-        });
-
         //监听提交
-        form.on('submit(useradd)', function (data) {
-
+        form.on('submit(add)', function (data) {
+            var keyvalue = $("#pingjiaoForm").serializeArray();
+            var courseid = $("#courseid").val();
+            var issue=$("#issue").val();
             var flag = '0';
             $.ajax({
                 async: false,
-                url: '/admin/user/adduser.shtm',
-                data: data.field,
+                url: '/student/course/addpingjiao.shtm',
+                data: {record: JSON.stringify(keyvalue),courseid:courseid,issue:issue},
                 type: 'post',
                 dataType: "json",
                 success: function (data) {

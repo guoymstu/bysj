@@ -74,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, courseName, courseHours, address, courseScore, year, term, courseType, remark, 
-    timeplan, commonType, countStu
+    id, coursename, coursehours, address, coursescore, year, term, coursetype, remark,
+    timeplan, commontype, countstu
   </sql>
   <select id="selectByExample" parameterType="com.gym.web.model.CourseExample" resultMap="BaseResultMap">
     select

@@ -84,7 +84,7 @@ public class GxStuCourseSerImpl extends BaseServiceImpl<GxStucourse> implements 
         StringBuilder sql = new StringBuilder();
         if (stuid != null && courseid != null) {
             sql.append(" DELETE FROM gx_stucourse  ");
-            sql.append(" where teaId='" + stuid + "'");
+            sql.append(" where stuid='" + stuid + "'");
             sql.append(" and courseID='" + courseid + "' ");
         }
 
@@ -109,6 +109,7 @@ public class GxStuCourseSerImpl extends BaseServiceImpl<GxStucourse> implements 
             sql.append(" and  course.id like '%" + querymap.get("keyword") + "%'");
             sql.append(" or course.coursename like '%" + querymap.get("keyword") + "%' ");
         }
+        sql.append(" GROUP BY gx.courseID ");
         String jsonStr = JSON.toJSONString(jdbcTemplate.queryForList(sql.toString()));
         JSONArray arry = JSONArray.parseArray(jsonStr.toLowerCase());
         return arry;

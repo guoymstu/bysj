@@ -59,23 +59,17 @@ public class TeacherSerImpl extends BaseServiceImpl<Teacher> implements TeacherS
 
     @Override
     public int updateTeacher(Map<String, String> map) {
+        Teacher teacher=new Teacher();
+        teacher.setId(map.get("uid"));
+        teacher.setMail(map.get("email"));
+        teacher.setName(map.get("username"));
+        teacher.setSex(map.get("sex"));
+        teacher.setTealevel(map.get("tealevel"));
+        teacher.setTelnum(map.get("telnum"));
+        teacher.setYuanxi(map.get("yuanxi"));
+        teacher.setAddress(map.get("address"));
 
-        Teacher record = teacherDao.selectByPrimaryKey(map.get("uid"));
-
-        TeacherExample example = new TeacherExample();
-        String address = map.get("province") + map.get("city") + map.get("county") + "(" + map.get("address") + ")";
-
-        Criteria criteria = example.createCriteria();
-
-        criteria.andNameEqualTo(map.get("username"));
-        criteria.andTealevelEqualTo(map.get("tealevel"));
-        criteria.andYuanxiEqualTo(map.get("yuanxi"));
-        criteria.andTelnumEqualTo(map.get("telnum"));
-        criteria.andSexEqualTo(map.get("sex"));
-        criteria.andAddressEqualTo(address);
-        criteria.andMailEqualTo(map.get("mail"));
-
-        int i = teacherDao.updateByExample(record, example);
+        int i=teacherDao.updateByPrimaryKey(teacher);
         return i;
     }
 

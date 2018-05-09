@@ -3,9 +3,8 @@ package com.gym.web.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.gym.commons.helper.QueryParmFormat;
-import com.gym.web.service.GxStuCourseSer;
-import com.gym.web.service.PjcontextSer;
-import com.gym.web.service.StudentSer;
+import com.gym.web.model.Student;
+import com.gym.web.service.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,10 @@ public class StudentController {
     GxStuCourseSer gxStuCourseSer;
     @Autowired
     PjcontextSer pjcontextSer;
+    @Autowired
+    PjRecordSer pjRecordSer;
+    @Autowired
+    ScopeDicSer scopeDicSer;
 
     @RequestMapping("/course/selectCourseView.shtm")
     public String selectCourseview() {
@@ -82,7 +85,7 @@ public class StudentController {
     }
 
     @RequestMapping("/course/pingjiaoListView.shtm")
-    public String pingjiaoListView(){
+    public String pingjiaoListView() {
         return "student/course/course-list-pingjiao";
     }
 
@@ -106,6 +109,12 @@ public class StudentController {
         return jsonObject;
     }
 
+    /**
+     * 退课
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping("/course/recallcourse.shtm")
     @ResponseBody
     public JSONObject recallcourse(HttpServletRequest request) {
@@ -125,11 +134,12 @@ public class StudentController {
 
     /**
      * 评教列表
+     *
      * @return
      */
     @RequestMapping("/course/pingjiaoList.shtm")
     @ResponseBody
-    public JSONObject pingjiaoList(HttpServletRequest request){
+    public JSONObject pingjiaoList(HttpServletRequest request) {
         Map<String, String> querymap = QueryParmFormat.Format(request.getParameterMap());
         JSONObject jsonObject = new JSONObject();
         Subject currentUser = SecurityUtils.getSubject();
@@ -144,18 +154,71 @@ public class StudentController {
     }
 
     @RequestMapping("/course/pingjiaoView.shtm")
-    public String pingjiaoView(HttpServletRequest request){
-        String courseid=request.getParameter("courseid");
-        Subject sub=SecurityUtils.getSubject();
-        String stuId=sub.getPrincipal().toString();
-        request.setAttribute("stuid",stuId);
-        request.setAttribute("courseid",courseid);
+    public String pingjiaoView(HttpServletRequest request) {
+        String courseid = request.getParameter("courseid");
+        Subject sub = SecurityUtils.getSubject();
+        String stuId = sub.getPrincipal().toString();
+        request.setAttribute("stuid", stuId);
+        request.setAttribute("courseid", courseid);
 
-        JSONArray array= pjcontextSer.getItems(courseid);//评教题目
+        JSONArray array = pjcontextSer.getItems(courseid);//评教题目
 
-        request.setAttribute("pingjiaoitems",array);
+        request.setAttribute("pingjiaoitems", array);
 
         return "student/pingjiao/pingjiao-list";
     }
 
+    /**
+     * 评教
+     *
+     * @return
+     */
+    @RequestMapping("/course/addpingjiao.shtm")
+    @ResponseBody
+    public JSONObject addpingjiao(HttpServletRequest request) {
+        JSONObject jsonObject = new JSONObject();
+        Subject currentUser = SecurityUtils.getSubject();
+        String stuid = currentUser.getPrincipal().toString();
+
+        String courseid = request.getParameter("courseid");
+        String recordStr = request.getParameter("record");
+
+
+        JSONArray array = JSONArray.parseArray(recordStr);
+
+        int i = pjRecordSer.addRecord(courseid, stuid, array);
+
+        String issue=request.getParameter("issue");
+
+        if (issue != null) {
+            pjRecordSer.addRecord(courseid, stuid, issue);
+        }
+        if (i > 0) {
+            jsonObject.put("status", "success");
+            jsonObject.put("msg", "评论成功");
+        }
+
+
+        return jsonObject;
+    }
+
+    @RequestMapping("/infoEdit.shtm")
+    public String editInfo(HttpServletRequest request) {
+        Subject subject = SecurityUtils.getSubject();
+        String stuid = subject.getPrincipal().toString();
+        Student stu=studentSer.findByPrimaryKey(stuid);
+        request.setAttribute("student",stu);
+
+        JSONArray nianjis = scopeDicSer.getNianji();
+        JSONArray yuanxis = scopeDicSer.getYuanxi();
+        JSONArray banjis = scopeDicSer.getAll();
+        JSONArray zhuanyes = scopeDicSer.getZhuanye();
+
+        request.setAttribute("nianjis", nianjis);
+        request.setAttribute("yuanxis", yuanxis);
+        request.setAttribute("zhuanyes", zhuanyes);
+        request.setAttribute("banjis", banjis);
+
+        return "student/info/InfoEdit";
+    }
 }

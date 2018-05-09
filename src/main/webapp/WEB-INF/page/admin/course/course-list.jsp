@@ -27,8 +27,8 @@
                 <button class="layui-btn mgl-20" id="refresh">刷新</button>
 
                 <div class="fr">
-                    <a class="layui-btn layui-btn-danger radius btn-delect" id="btn-delect-all"><i
-                            class="linyer icon-delect"></i> 批量删除</a>
+                    <%--<a class="layui-btn layui-btn-danger radius btn-delect" id="btn-delect-all"><i--%>
+                            <%--class="linyer icon-delect"></i> 批量删除</a>--%>
                     <a class="layui-btn btn-add btn-default" id="btn-addcourse"><i class="linyer icon-add"></i> 添加课程</a>
                 </div>
             </li>
@@ -340,7 +340,8 @@
         /*课程-编辑*/
         $('.table-sort').on('click', '.handle-btn-edit', function () {
             var obj = $(this);
-            layer_show('编辑', 'user-edit.shtm', '', '800', '500');
+            var courseid = $(obj).parents("tr").find("td:nth-child(2)").html();
+            layer_show('编辑', 'course-edit.shtm?courseid='+courseid, '', '800', '500');
         });
 
         /*课程-删除*/

@@ -163,7 +163,13 @@
 
                     {
                         "data": function (obj) {
-                            return '<button class="layui-btn handle-pingjiao">评教</button>' ;
+                            if(obj.status=="0"){
+                                return '<span class="layui-btn  layui-btn-disabled ">评教</span>';
+                            } else {
+                                return '<button class="layui-btn handle-pingjiao">评教</button>' ;
+                            }
+
+
                         },
                         "className": "td-handle",
                         "sTitle": "操作", //标题

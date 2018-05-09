@@ -40,7 +40,7 @@
 
         <div href="#!" class="layui-right user"><a href="#!" class="user-avatar">
             <i class="layui-icon" style="font-size: 30px; color:white;">&#xe612;</i><span
-                class="c-fff mgl-20"><shiro:principal></shiro:principal></span></a>
+                class="c-fff mgl-20">${student.id}</span></a>
             <ul class="user-nav">
                 <li class="user-nav-item"><a href="#!"><i class="layui-icon">&#xe612;</i> 个人设置</a></li>
                 <li class="user-nav-item"><a href="<%=basePath%>loginout.shtm" id="btn-exit"><i class="layui-icon">&#xe623;</i> 退出</a>
@@ -75,14 +75,17 @@
 
             <li class="layui-nav-item"><a>信息维护</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" data-url="<%=basePath%>admin/pingjiao/pingjiaoList.shtm"><label>个人信息设置</label></a></dd>
+                    <dd><a href="javascript:;" data-url="<%=basePath%>student/infoEdit.shtm"><label>个人信息设置</label></a></dd>
                 </dl>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" data-url="<%=basePath%>admin/order/order-list.html"><label>评教记录</label></a></dd>
+                    <dd><a href="javascript:;" data-url="<%=basePath%>student/resetpwd.shtm"><label>修改密码</label></a></dd>
                 </dl>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" data-url="<%=basePath%>admin/order/order-list.html"><label>评教统计</label></a></dd>
-                </dl>
+                <%--<dl class="layui-nav-child">--%>
+                    <%--<dd><a href="javascript:;" data-url="<%=basePath%>admin/order/order-list.html"><label>评教记录</label></a></dd>--%>
+                <%--</dl>--%>
+                <%--<dl class="layui-nav-child">--%>
+                    <%--<dd><a href="javascript:;" data-url="<%=basePath%>admin/order/order-list.html"><label>评教统计</label></a></dd>--%>
+                <%--</dl>--%>
             </li>
         </ul>
 

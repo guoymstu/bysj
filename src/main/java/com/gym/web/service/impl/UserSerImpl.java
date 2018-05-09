@@ -189,6 +189,7 @@ public class UserSerImpl extends BaseServiceImpl<User> implements UserSer {
     @Override
     public int deluserByUid(String useruid) {
 
+        //删除用户，删除教师学生表记录
         UserExample example = new UserExample();
         Criteria criteria = example.createCriteria();
         criteria.andUidEqualTo(useruid);
